@@ -4,6 +4,7 @@ import { Button, Grid } from '@material-ui/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { ENDPOINT } from "../utils/Constants";
+import { Alert } from '@material-ui/lab';
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'firstName', headerName: 'First name', width: 130 },
@@ -11,17 +12,16 @@ const columns = [
     { field: 'process', headerName: 'Process', width: 130 },
 ];
 
-const processTrueData = (selected, setLoad, setRows, rows, setSelected) => async () => {
+const processTrueData = (selected, setLoad, setError) => async () => {
     console.log(selected)
     try {
         const row = selected.map((number) => Number(number))
         await axios.post(`${ENDPOINT}/v1/data/process`, row)
-        // const response = await axios.get('http://localhost:8000/v1/data')
         setLoad(false)
-        setSelected([])
-        //setRows(response.data)
+        setError(false)
         console.log("consulta")
     } catch (error) {
+        setError(true)
         console.log(error)
     }
 
@@ -49,6 +49,7 @@ const ConsultProcess = () => {
         api()
         console.log('useEffect ejecutado');
     }, [load])
+    const [error, setError] = useState(false);
 
     const margintop = "10px"
 
@@ -77,7 +78,7 @@ const ConsultProcess = () => {
                 container
                 direction="column"
                 style={{ marginTop: margintop, width: "100px" }}>
-                <Button onClick={processTrueData(selected, setLoad, setRows, rows, setSelected)} variant="contained" color="primary" >
+                <Button onClick={processTrueData(selected, setLoad, setError)} variant="contained" color="primary" >
                     Procesar
                     </Button>
             </Grid>
@@ -91,6 +92,17 @@ const ConsultProcess = () => {
                     Cancelar
                     </Button>
             </Grid>
+            <Grid item
+                    container
+                    direction="column"
+                    style={{ marginTop: margintop }}>
+                    {error ?
+                        <Alert variant="filled" severity="error">
+                            Se produjo un error
+                      </Alert>
+                        :
+                        null}
+                </Grid>
         </Grid>
 
 
