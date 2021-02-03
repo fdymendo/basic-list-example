@@ -1,4 +1,4 @@
-# Título del Proyecto
+# basic-list-example
 
 Ejemplo básico sobre la actualización de un registro por medio de un front en react y banckend en spring boot.
 
@@ -46,14 +46,11 @@ Herramientas utilizadas para la construcciono del proyecto
 
 ## Contribuyendo 🖇️
 
-#
 ## Autores ✒️
 
 Auto del proyecto
 
 * **FdyMendo** - *Trabajo Inicial*
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
 
 ## Licencia 📄
 
